@@ -55,14 +55,18 @@ export default function CreateProductForm() {
       }
 
       // 상품 생성
-      const categoryValue = formData.get('category') as string
+      const descriptionValue = (formData.get('description') as string) ?? ''
+      const categoryValue = (formData.get('category') as string) ?? ''
+      const locationValue = (formData.get('location') as string) ?? ''
+      const imagesValue = (formData.get('images') as string) ?? ''
+
       const productData = {
         title: formData.get('title') as string,
-        description: (formData.get('description') as string) || undefined,
+        description: descriptionValue || undefined,
         price: Number(formData.get('price')),
         category: categoryValue ? (categoryValue as typeof CATEGORIES[number]) : undefined,
-        location: (formData.get('location') as string) || undefined,
-        images: (formData.get('images') as string) || undefined,
+        location: locationValue || undefined,
+        images: imagesValue || undefined,
         sellerId: sellerId!
       }
 
