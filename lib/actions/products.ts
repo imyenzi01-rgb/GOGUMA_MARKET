@@ -1,7 +1,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { createServiceClient } from '@/lib/supabase/service'
+import { createClient } from '@/lib/supabase/server'
 import { profileSchema, productSchema, type ProfileFormData, type ProductFormData } from '@/lib/validation/product'
 import { parseImageUrls } from '@/lib/utils'
 
@@ -13,7 +13,7 @@ type ActionResponse<T = unknown> =
 // 사용자 이름 중복 확인
 export async function checkUsernameAvailable(username: string): Promise<ActionResponse<boolean>> {
   try {
-    const supabase = createServiceClient()
+    const supabase = await createClient()
 
     const { data, error } = await supabase
       .from('profiles')
@@ -47,7 +47,7 @@ export async function createProfile(formData: ProfileFormData): Promise<ActionRe
       return { success: false, error: '이미 사용 중인 이름입니다' }
     }
 
-    const supabase = createServiceClient()
+    const supabase = await createClient()
 
     const { data, error } = await supabase
       .from('profiles')
@@ -91,7 +91,7 @@ export async function createProduct(
     // 이미지 URL 파싱
     const imageUrls = parseImageUrls(validated.images)
 
-    const supabase = createServiceClient()
+    const supabase = await createClient()
 
     const { data, error } = await supabase
       .from('products')
