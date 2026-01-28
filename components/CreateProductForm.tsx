@@ -55,11 +55,12 @@ export default function CreateProductForm() {
       }
 
       // 상품 생성
+      const categoryValue = formData.get('category') as string
       const productData = {
         title: formData.get('title') as string,
         description: (formData.get('description') as string) || undefined,
         price: Number(formData.get('price')),
-        category: (formData.get('category') as string) || undefined,
+        category: categoryValue ? (categoryValue as typeof CATEGORIES[number]) : undefined,
         location: (formData.get('location') as string) || undefined,
         images: (formData.get('images') as string) || undefined,
         sellerId: sellerId!
