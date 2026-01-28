@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -15,8 +16,18 @@ export default function RootLayout({
     <html lang="ko">
       <body>
         <header className="bg-white border-b sticky top-0 z-10">
-          <div className="container mx-auto px-4 py-4">
-            <h1 className="text-2xl font-bold text-primary">🍠 고구마마켓</h1>
+          <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+            <Link href="/">
+              <h1 className="text-2xl font-bold text-primary cursor-pointer">
+                🍠 고구마마켓
+              </h1>
+            </Link>
+            <Link
+              href="/products/new"
+              className="px-4 py-2 bg-primary text-white rounded-md hover:bg-orange-600 transition"
+            >
+              상품 등록
+            </Link>
           </div>
         </header>
         {children}

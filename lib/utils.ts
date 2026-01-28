@@ -35,3 +35,19 @@ export function timeAgo(date: string): string {
 
   return `${Math.floor(diffInMonths / 12)}년 전`
 }
+
+// 이미지 URL 파싱 (쉼표로 구분된 문자열을 URL 배열로)
+export function parseImageUrls(input: string | undefined): string[] {
+  if (!input || input.trim() === '') return []
+
+  // 쉼표로 분리
+  const urls = input.split(',')
+    .map(url => url.trim())
+    .filter(url => url.length > 0)
+
+  // URL 형식 검증
+  const urlRegex = /^https?:\/\/.+\..+/i
+  const validUrls = urls.filter(url => urlRegex.test(url))
+
+  return validUrls
+}
